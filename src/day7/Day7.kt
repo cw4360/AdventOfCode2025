@@ -84,6 +84,24 @@ fun score(coordinate: Pair<Int,Int>): Long {
     return result
 }
 
+fun convertInputToMatrix(file: File): MutableList<MutableList<String>> {
+    val result = mutableListOf<MutableList<String>>()
+
+    file.forEachLine { line ->
+        result.add(line.split("").toMutableList())
+    }
+    return result
+}
+
+fun locateBeamStartingPosition(row: List<String>): Pair<Int, Int> {
+    for (i in row.indices) {
+        if (row[i] == "S") {
+            return Pair(0,i)
+        }
+    }
+    return Pair(-1,-1)
+}
+
 // This theoretically works, but is very inefficient because this would
 // take exponential time due to the exponentially growing number of splitting paths.
 // Part two: Count the total possible paths a tachyon beam may have traveled.
@@ -132,21 +150,3 @@ fun score(coordinate: Pair<Int,Int>): Long {
 //    println(result)
 //    return result
 //}
-
-fun convertInputToMatrix(file: File): MutableList<MutableList<String>> {
-    val result = mutableListOf<MutableList<String>>()
-
-    file.forEachLine { line ->
-        result.add(line.split("").toMutableList())
-    }
-    return result
-}
-
-fun locateBeamStartingPosition(row: List<String>): Pair<Int, Int> {
-    for (i in row.indices) {
-        if (row[i] == "S") {
-            return Pair(0,i)
-        }
-    }
-    return Pair(-1,-1)
-}
